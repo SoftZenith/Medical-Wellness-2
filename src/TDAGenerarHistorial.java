@@ -36,16 +36,18 @@ public class TDAGenerarHistorial {
         this.expediente=expediente;
     }
     
-    public void setPresion(Float presion){
+    public void setPresion(float presion){
         this.presion=presion;
     }
     
-    public void setAltura(Float altura){
+    public void setAltura(float altura){
         this.altura=altura;
     }
     
-    public void setPeso(Float peso){
+    public void setPeso(float peso){
         this.peso=peso;
     }
-    
+    public float getPeso(){
+        return peso;
+    }
 }
