@@ -1,9 +1,7 @@
 import java.sql.*;
 import javax.swing.JOptionPane;
-/**
- *
- * @author JDMB
- */
+
+
 public class Conexion{
     public Connection conectar(){
         Connection con=null;
