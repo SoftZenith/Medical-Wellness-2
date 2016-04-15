@@ -1,3 +1,8 @@
+
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -85,6 +90,11 @@ public class Farmacia extends javax.swing.JFrame {
 
         btnRegis.setText("Registrar Medicamento");
         btnRegis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegisMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -143,6 +153,11 @@ public class Farmacia extends javax.swing.JFrame {
 
         btnBuscar.setText("Buscar");
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
 
         btnMenu.setText("Regresar al Menu");
         btnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -225,6 +240,44 @@ public class Farmacia extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnMenuMouseClicked
+
+    private void btnRegisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisMouseClicked
+        if(txtMed.getText().isEmpty()||txtDes.getText().isEmpty()||txtTipo.getText().isEmpty()){
+            showMessageDialog(this,"¡Rellene todos los campos para guardar datos!");
+        }
+        else{
+            TDAMedicamento med=new TDAMedicamento(txtMed.getText(),txtDes.getText(),txtTipo.getText(),(String)(cbxPres.getSelectedItem()));
+            if(med.guardar()){
+                txtMed.setText("");
+                txtDes.setText("");
+                txtTipo.setText("");
+                cbxPres.setSelectedIndex(0);
+                showMessageDialog(this,"Registro Exitoso, Medicamento Agregado a Inventario");
+            }
+        }
+    }//GEN-LAST:event_btnRegisMouseClicked
+
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        DefaultTableModel modelo = new DefaultTableModel();
+        JTable tabla = new JTable(modelo);
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Presentación");
+        if(txtBuscar.getText().isEmpty()){
+            showMessageDialog(this,"¡Agregue un nombre para buscar el medicamento!");
+        }
+        else{
+            TDAMedicamento men= new TDAMedicamento();
+            String cad=men.buscar(txtBuscar.getText());
+            if(!cad.isEmpty()){
+                txtExistencia.setText(cad);
+            }
+            else{
+                showMessageDialog(this,"¡El medicamento no se encontro en el inventario!");
+            }
+        }
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
     /**
      * @param args the command line arguments

@@ -1,3 +1,7 @@
+
+import java.util.Arrays;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -148,8 +152,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPassActionPerformed
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
-        obj.setVisible(true);
-        this.hide();
+        
+        if(txtUser.getText().isEmpty()||txtPass.getText().isEmpty()){
+            showMessageDialog(this,"¡Rellene todos los campos para autenticarse!");
+        }
+        else{
+            TDALogin log= new TDALogin(txtUser.getText(),Arrays.toString(txtPass.getPassword()));
+            if(!log.guardar()){
+                showMessageDialog(this,"¡Verifique su información, no es posible autenticarse!");
+            }
+        }
     }//GEN-LAST:event_btnEntrarMouseClicked
 
     /**

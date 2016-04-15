@@ -291,6 +291,9 @@
                   <Color id="Cursor de Mano"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegisMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -308,6 +311,9 @@
               <Color id="Cursor de Mano"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMenu">
           <Properties>

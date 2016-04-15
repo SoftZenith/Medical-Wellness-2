@@ -1,12 +1,37 @@
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Date; //pendiente sql.Date o util.Date
+import javax.swing.JOptionPane;
 
 public class TDAPaciente {
     
     private String nombre, nss, domicilio, unidad_medica, telefono, curp, doctor,
                     ciudad, estado, edo_civil, ocupacion;
-    private Date fecha; //Pendiente analizar el uso de util.Date ó sql.Date para almacenar la fecha
+    private String fecha; //Pendiente analizar el uso de util.Date ó sql.Date para almacenar la fecha
     private int edad, codigo_postal;
+    public TDAPaciente(){
+    }
+    public boolean insertar(){ 
+    Connection miCon = (new Conexion()).conectar();
+        if(miCon!=null){
+            try{
+               Statement stmt = miCon.createStatement();
+             
+               stmt.executeUpdate("INSERT INTO PACIENTE " +
+                  "VALUES ('"+nss+"','"+nombre+"','"+domicilio+"','"+unidad_medica+"','"+telefono+"','"+curp+"','"+fecha+"','"+doctor+"','"+ciudad+"','"+estado+"','"+edo_civil+"','"+ocupacion+"',"+edad+","+codigo_postal+")"); 
+                
+                //JOptionPane.showMessageDialog(null,"Registro de Paciente, Exitoso..!");
+                miCon.close();
+                return true;
+            }
+            catch(Exception e){
+                return false;
+                //JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return true;
+   }
 
     public String getDomicilio() {
         return domicilio;
@@ -88,11 +113,11 @@ public class TDAPaciente {
         this.codigo_postal = codigo_postal;
     }
     
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }    
     

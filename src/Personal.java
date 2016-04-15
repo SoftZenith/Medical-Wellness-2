@@ -1,3 +1,6 @@
+
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -45,6 +48,8 @@ public class Personal extends javax.swing.JFrame {
         txtSal = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtPass = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +90,11 @@ public class Personal extends javax.swing.JFrame {
 
         btnGuardar.setText("Guardar");
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -94,17 +104,14 @@ public class Personal extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Password:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,8 +157,18 @@ public class Personal extends javax.swing.JFrame {
                                                     .addComponent(txtSal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addComponent(txtDom, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(19, 19, 19)
-                                        .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 48, Short.MAX_VALUE)))
+                                        .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 48, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(btnGuardar))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,9 +205,13 @@ public class Personal extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(txtEntr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
                         .addGap(5, 5, 5)
-                        .addComponent(txtSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
@@ -225,6 +246,39 @@ public class Personal extends javax.swing.JFrame {
         a.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
+
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        if(txtPass.getText().isEmpty()||txtDom.getText().isEmpty()||txtEntr.getText().isEmpty()||
+                txtNom.getText().isEmpty()||txtRFC.getText().isEmpty()||txtSal.getText().isEmpty()||
+                txtTel.getText().isEmpty()){
+            
+            showMessageDialog(this,"¡Rellene todos los campos para guardar datos!");
+            
+        }
+        else{
+        
+            TDAPersonal ps= new TDAPersonal(txtRFC.getText(),txtNom.getText(),txtDom.getText(),
+            txtTel.getText(),((String)(cbxPuesto.getSelectedItem())),(txtEntr.getText()+"-"+txtSal.getText()),
+            txtPass.getText());
+            if(ps.insertar()){
+            
+                showMessageDialog(this,"¡Registro Exitoso!");
+                txtRFC.setText("");
+                txtNom.setText("");
+                txtDom.setText("");
+                txtTel.setText("");
+                cbxPuesto.setSelectedIndex(0);
+                txtEntr.setText("");
+                txtSal.setText("");
+                txtPass.setText("");
+                
+            }
+            else{
+                showMessageDialog(this,"¡No ha sido posible registrar trabajador!");
+            }
+        
+        }
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -266,6 +320,7 @@ public class Personal extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbxPuesto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -278,6 +333,7 @@ public class Personal extends javax.swing.JFrame {
     private javax.swing.JTextField txtDom;
     private javax.swing.JTextField txtEntr;
     private javax.swing.JTextField txtNom;
+    private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtRFC;
     private javax.swing.JTextField txtSal;
     private javax.swing.JTextField txtTel;
