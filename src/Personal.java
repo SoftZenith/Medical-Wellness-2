@@ -15,6 +15,7 @@ public class Personal extends javax.swing.JFrame {
 
     /**
      * Creates new form Personal
+     * base de datos completo
      */
     public Personal() {
         initComponents();
@@ -242,8 +243,8 @@ public class Personal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomActionPerformed
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        Menu a= new Menu();
-        a.setVisible(true);
+        Menu c= new Menu();
+        c.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
